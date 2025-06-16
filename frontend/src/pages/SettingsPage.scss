@@ -1,0 +1,73 @@
+.settings-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  
+  .page-header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: var(--text-color-dark);
+  }
+}
+
+.settings-grid {
+  display: grid;
+  // This creates a responsive grid that shows as many columns as fit
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.setting-card {
+  background-color: var(--component-bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px var(--shadow-color);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  gap: 0.5rem;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-color);
+  }
+
+  /* NEW: Styles for the card header */
+  .setting-card-header {
+    display: flex;
+    flex-direction: row; /* Aligns items horizontally */
+    align-items: center;  /* Vertically centers the icon and title */
+    gap: 0.75rem;       /* Adds space between icon and title */
+    margin-bottom: 0.5rem; /* Adds some space below the header */
+  }
+
+  .setting-card-icon {
+    font-size: 1.5rem; /* Slightly smaller icon for horizontal layout */
+    color: var(--primary-color);
+    flex-shrink: 0; /* Prevents icon from shrinking */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    margin-bottom: 0; /* Removed margin-bottom as gap is used now */
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.15rem; /* Adjusted font size */
+    color: var(--text-color-dark);
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-color-light);
+    font-size: 0.95rem;
+    flex-grow: 1;
+    line-height: 1.5; /* Improved line height for readability */
+  }
+}

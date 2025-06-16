@@ -1,0 +1,108 @@
+.conversation-page-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; 
+    height: 100%;
+    .page-header, .actions-container { flex-shrink: 0; }
+    .list-card { flex-grow: 1; min-height: 0; display: flex; flex-direction: column; .conversation-list, .no-conversations { overflow-y: auto; height: 100%; } }
+    .page-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; h1 { margin: 0; font-size: 2rem; color: var(--text-color-dark); } }
+    .view-toggle-buttons { display: flex; border: 1px solid var(--border-color); border-radius: 8px; overflow: hidden; width: fit-content; button { background-color: transparent; border: none; padding: 0.5rem 1rem; cursor: pointer; font-size: 0.9rem; font-weight: 500; color: var(--text-color-light); transition: all 0.2s ease; border-left: 1px solid var(--border-color); font-family: 'Tajawal', sans-serif; &:first-child { border-left: none; } &.active { background-color: var(--primary-color); color: white; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); } &:not(.active):hover { background-color: #f8f9fa; } } }
+    .actions-container { display: flex; flex-direction: column; gap: 1.5rem; padding: 1.5rem; background-color: var(--component-bg-color); border-radius: 12px; box-shadow: 0 4px 15px var(--shadow-color); }
+    .search-input { padding: 0.75rem 1rem; border: 1px solid var(--border-color); border-radius: 8px; font-size: 1rem; font-family: inherit; transition: border-color 0.2s, box-shadow 0.2s; &:focus { outline: none; border-color: var(--primary-color); box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2); } }
+    .new-conversation-form { display: flex; gap: 1rem; align-items: center; .form-input { flex-grow: 1; } .button-primary { padding: 0.75rem 1.5rem; background-color: var(--primary-color); color: white; border: none; border-radius: 8px; font-weight: 500; font-size: 1rem; cursor: pointer; transition: background-color 0.2s; white-space: nowrap; font-family: 'Tajawal', sans-serif; &:hover { background-color: var(--primary-hover-color); } } }
+
+    .conversation-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+
+        .conversation-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background-color: #fdfdff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: transform 0.2s ease, border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+            &:hover { 
+                transform: translateY(-2px); 
+                border-color: var(--primary-color); 
+                background-color: #ffffff;
+                box-shadow: 0 4px 15px var(--shadow-color);
+            }
+
+            .conversation-link {
+                flex-grow: 1;
+                min-width: 0;
+                text-decoration: none;
+                color: var(--text-color-dark);
+                font-weight: 500;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .conversation-title-text {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 100%;
+                font-size: 1.1rem;
+                font-weight: 500;
+            }
+
+            .conversation-date {
+                font-size: 0.8rem;
+                color: var(--text-color-secondary);
+                font-weight: 400;
+                direction: ltr;
+                align-self: flex-start;
+            }
+            
+            .conversation-actions {
+                display: flex;
+                align-items: center;
+                gap: 2px; // تقريب الأزرار من بعضها
+                flex-shrink: 0;
+                padding-right: 1rem;
+                
+                button {
+                    background: transparent;
+                    border: none;
+                    cursor: pointer;
+                    color: var(--text-color-secondary);
+                    padding: 0; // Padding is controlled by width/height
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: background-color 0.2s, color 0.2s;
+                    // **التعديل النهائي**: تكبير حجم الأزرار
+                    width: 46px;
+                    height: 46px;
+
+                    svg {
+                      // **التعديل النهائي**: تكبير حجم الأيقونات
+                      font-size: 1.15rem;
+                    }
+
+                    &:hover {
+                        background-color: #e9ecef;
+                        color: var(--text-color-dark);
+                    }
+                    
+                    &:last-child:hover {
+                        background-color: rgba(var(--error-rgb), 0.1);
+                        color: var(--error-dark-color);
+                    }
+                }
+            }
+            .rename-input { flex-grow: 1; font-size: 1rem; padding: 0.5rem; border: 1px solid var(--primary-color); border-radius: 6px; font-weight: 500; &:focus { outline: none; } }
+        }
+        .no-conversations { text-align: center; padding: 2rem; color: var(--text-color-light); }
+    }
+}

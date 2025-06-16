@@ -1,0 +1,125 @@
+// D:\intelligent translator\frontend\src/assets/styles/pages/_help-page.scss
+// تم تحديث هذا الملف بالكامل ليعكس التصميم الجديد القائم على البطاقات.
+
+.help-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto; // Allow this page to scroll
+    padding: 1rem;
+    gap: 1.5rem;
+
+    .help-header {
+        text-align: center;
+        padding: 1rem;
+        background-color: var(--component-bg-color);
+        border-radius: var(--border-radius-lg);
+        border: 1px solid var(--border-color);
+
+        h1 {
+            margin: 0 0 0.5rem 0;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+        }
+        p {
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--text-color-secondary);
+        }
+    }
+
+    .help-content {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .help-card {
+        background-color: var(--component-bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-lg);
+        padding: 1.5rem 2rem;
+        transition: box-shadow 0.3s ease;
+
+        &:hover {
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--text-color-dark);
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 0.75rem;
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .help-item {
+            margin-bottom: 1.5rem;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+                font-weight: var(--font-weight-bold);
+                color: var(--text-color);
+                margin-top: 0;
+                margin-bottom: 0.75rem;
+            }
+    
+            ul {
+                list-style-type: disc;
+                padding-right: 20px;
+                margin: 0;
+                line-height: 1.8;
+                color: var(--text-color-secondary);
+    
+                li {
+                    margin-bottom: 0.5rem;
+                }
+            }
+        }
+    }
+
+    .help-footer {
+        text-align: center;
+        margin-top: auto; // Pushes footer to the bottom
+        padding: 1.5rem 0 0 0;
+        color: var(--text-color-secondary);
+        font-size: 0.9rem;
+        p {
+            margin: 0.25rem 0;
+        }
+    }
+}
+
+
+// Responsive adjustments
+@media (max-width: 768px) {
+    .help-page {
+        padding: 0.5rem;
+        gap: 1rem;
+
+        .help-header {
+            padding: 0.75rem;
+            h1 {
+                font-size: 1.8rem;
+            }
+            p {
+                font-size: 1rem;
+            }
+        }
+
+        .help-card {
+            padding: 1rem 1.25rem;
+            h2 {
+                font-size: 1.3rem;
+            }
+            .help-item h3 {
+                font-size: 1rem;
+            }
+        }
+    }
+}

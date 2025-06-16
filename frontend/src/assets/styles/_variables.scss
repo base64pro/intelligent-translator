@@ -1,0 +1,59 @@
+// D:\intelligent translator\frontend\src\assets\styles\_variables.scss
+
+:root {
+  /* --- Colors --- */
+  --primary-color: #4a90e2; // Blue
+  --primary-rgb: 74, 144, 226; // RGB values for primary color (used with rgba)
+  --primary-light-color: #8bbcef; // Lighter primary for gradients/subtle backgrounds
+  --primary-dark-color: #367ac8; // Darker primary for hover states
+  --primary-darker-color: #2b5c9b; // Even darker primary for active/pressed states
+
+  --secondary-color: #6c757d; // Gray/Secondary text
+  --secondary-light-color: #adb5bd;
+  --secondary-dark-color: #495057;
+
+  --text-color: #343a40; // Main body text color
+  --text-color-secondary: #6c757d; // Lighter text for less important info
+  --text-color-dark: #212529; // Darker text for headings
+
+  --background-color: #f8f9fa; // Light gray background for main content
+  --sidebar-bg-color: #ffffff; // White background for sidebar
+  --component-bg-color: #ffffff; // White background for cards/components
+  --input-bg-color: #e9ecef; // Light background for input fields
+  --border-color: #dee2e6; // Light gray for borders
+  --active-link-bg: #4a90e2; // Background for active sidebar link
+  --active-link-color: #ffffff; // Text color for active sidebar link
+
+  --error-color: #dc3545; // Red for errors
+  --error-rgb: 220, 53, 69; // RGB values for error color
+  --error-dark-color: #a7000c; // Darker error for hover/active
+
+  --success-color: #28a745; // Green for success messages
+  --success-rgb: 40, 167, 69;
+
+  --warning-color: #ffc107; // Yellow for warnings
+  --warning-rgb: 255, 193, 7;
+
+  --info-color: #17a2b8; // Cyan/Blue for info messages
+  --info-rgb: 23, 162, 184;
+
+
+  /* --- Typography / Fonts --- */
+  --font-family-base: 'Tajawal', sans-serif;
+  --font-size-base: 1rem; // Base font size
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* --- Spacing --- */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+
+  /* --- Border Radius --- */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}

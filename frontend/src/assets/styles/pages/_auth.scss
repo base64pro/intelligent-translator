@@ -1,0 +1,200 @@
+// D:\intelligent translator\frontend\src\assets\styles\pages\_auth.scss
+// تم إعادة هيكلة هذا الملف لضمان توسط أيقونة كلمة المرور بشكل مثالي.
+
+html, body, #root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: var(--background-color);
+    background-image: linear-gradient(135deg, var(--primary-light-color) 0%, var(--background-color) 100%);
+    padding: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.auth-card {
+    background-color: var(--sidebar-bg-color);
+    padding: 40px 50px;
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h2 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-lg);
+    font-size: 2rem;
+    font-weight: var(--font-weight-bold);
+}
+
+.form-group {
+    margin-bottom: var(--spacing-md);
+    text-align: right;
+
+    label {
+        display: block;
+        margin-bottom: var(--spacing-sm);
+        color: var(--text-color);
+        font-weight: var(--font-weight-bold);
+        font-size: 0.95rem;
+    }
+}
+
+// **التعديل الهيكلي هنا**
+// حاوية جديدة حول حقل الإدخال والأيقونة
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    input {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius-md);
+        background-color: #fdfdff;
+        color: var(--text-color);
+        font-size: 1rem;
+        box-sizing: border-box;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+        &:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.25);
+        }
+    }
+    
+    // إعطاء الحشوة فقط لحقول كلمة المرور
+    &.password-group input {
+        padding-left: 50px;
+    }
+}
+
+.password-toggle {
+    position: absolute;
+    left: 1px;
+    // **التعديل الجوهري**: استخدام flex وتوسيط تلقائي بدلاً من الحسابات
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+    width: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-color-secondary);
+    font-size: 1.1rem;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: var(--primary-color);
+    }
+}
+
+
+.primary-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 12px 25px;
+    border: none;
+    border-radius: var(--border-radius-md);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+    width: 100%;
+    margin-top: var(--spacing-md);
+    font-family: inherit;
+    font-weight: var(--font-weight-bold);
+
+    &:hover {
+        background-color: var(--primary-dark-color);
+        transform: translateY(-2px);
+    }
+
+    &:active {
+        background-color: var(--primary-darker-color);
+        transform: translateY(0);
+    }
+}
+
+.error-message, .success-message {
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    font-size: 0.95rem;
+    text-align: center;
+    min-height: 20px;
+}
+
+.error-message {
+    color: var(--error-color);
+}
+
+.success-message {
+    color: var(--success-color);
+}
+
+
+.auth-footer {
+    margin-top: var(--spacing-lg);
+    color: var(--text-color-secondary);
+    font-size: 0.9rem;
+
+    a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-weight: var(--font-weight-bold);
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 30px 25px;
+        margin: 0;
+    }
+
+    h2 {
+        font-size: 1.7rem;
+    }
+
+    .form-group {
+        margin-bottom: var(--spacing-sm);
+    }
+
+    .primary-button {
+        padding: 12px 20px;
+        font-size: 1rem;
+    }
+
+    .auth-footer {
+        margin-top: var(--spacing-md);
+        font-size: 0.85rem;
+    }
+}

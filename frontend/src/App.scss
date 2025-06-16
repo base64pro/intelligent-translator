@@ -1,0 +1,203 @@
+/* Shared styles for the entire application */
+@import "./assets/styles/_variables.scss";
+// A general container for a "card" like element
+.card {
+    background-color: var(--component-bg-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    transition: box-shadow 0.3s ease;
+}
+
+// General form input style
+.form-input {
+    flex-grow: 1;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-color: #fdfdff;
+    &:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    }
+}
+
+// General primary button style
+.button-primary {
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+    &:hover:not(:disabled) {
+        background-color: var(--primary-hover-color);
+    }
+
+    &:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+    }
+}
+
+// General status/error message style
+.status-message {
+  font-style: italic;
+  text-align: right;
+  min-height: 20px;
+  margin-top: 10px;
+  &.error {
+    color: var(--danger-color);
+  }
+}
+
+/* --- Generic Modal Styles --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: var(--component-bg-color);
+  padding: 2rem;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+  // Support for wider modals
+  &.wide {
+    max-width: 800px;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+
+  h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+}
+
+.modal-close-button {
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--text-color-light);
+  transition: color 0.2s;
+
+  &:hover {
+    color: var(--text-color-dark);
+  }
+}
+
+/* --- Generic Form Group Style --- */
+.form-group {
+    margin-bottom: 1.5rem;
+    label {
+        display: block;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+    }
+
+    p.description {
+        font-size: 0.9rem;
+        color: var(--text-color-light);
+        margin-top: 0.25rem;
+        margin-bottom: 0;
+    }
+}
+
+/* --- NEW STYLES for Prompt Manager Modal --- */
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  h3 {
+    margin: 0;
+  }
+  .button-primary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+}
+
+.prompt-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.prompt-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-color);
+  &:last-child {
+    border-bottom: none;
+  }
+  .prompt-title {
+    flex-grow: 1;
+    font-weight: 500;
+  }
+  .prompt-actions {
+    display: flex;
+    gap: 0.5rem;
+    button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      padding: 0.5rem;
+      border-radius: 50%;
+      color: var(--text-color-light);
+      transition: all 0.2s;
+      &:hover {
+        background-color: #f1f3f5;
+        color: var(--text-color-dark);
+      }
+    }
+  }
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    .button-secondary {
+        @extend .button-primary;
+        background-color: #f1f3f5;
+        color: var(--text-color-dark);
+        &:hover:not(:disabled) {
+            background-color: #dee2e6;
+        }
+    }
+}

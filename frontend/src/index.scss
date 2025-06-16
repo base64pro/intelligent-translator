@@ -1,0 +1,50 @@
+// Define color palette and global styles using CSS variables
+:root {
+  --primary-color: #4a90e2;
+  --primary-hover-color: #357abd;
+  --text-color-dark: #343a40;
+  --text-color-light: #6c757d;
+  --background-color: #f8f9fa;
+  --component-bg-color: #ffffff;
+  --border-color: #e9ecef;
+  --shadow-color: rgba(0, 0, 0, 0.05);
+  --danger-color: #e74c3c;
+}
+
+// --- UPDATED: Ensure full height for the app ---
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; // Prevent scroll on the body itself
+}
+
+body {
+  /* Use the new TAJAWAL font */
+  font-family: 'Tajawal', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background-color);
+  color: var(--text-color-dark);
+}
+
+// General utility class for page containers
+.page-container {
+  animation: fadeIn 0.5s ease-in-out;
+  height: 100%; // Ensure page container takes full height
+  display: flex;
+  flex-direction: column;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

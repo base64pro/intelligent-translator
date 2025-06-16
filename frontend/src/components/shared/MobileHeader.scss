@@ -1,0 +1,37 @@
+.mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* CORRECTED: This aligns content to the RIGHT in an RTL layout */
+    padding: 0 1rem;
+    height: 60px;
+    background-color: var(--component-bg-color);
+    border-bottom: 1px solid var(--border-color);
+    flex-shrink: 0;
+    width: 100%;
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+  
+    .logo-icon-wrapper {
+      background-color: var(--primary-color);
+      color: white;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    
+    h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text-color-dark);
+    }
+}
