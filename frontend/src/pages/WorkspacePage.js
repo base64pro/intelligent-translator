@@ -108,8 +108,6 @@ function WorkspacePage() {
             messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
         }
     }, [messages, messageSearchQuery]);
-
-    // **تم حذف الـ useEffect الخاص باللمس لأنه سيتم التعامل معه مباشرة في الزر**
     
     useEffect(() => {
       if (isSettingsOpen) {
@@ -335,18 +333,14 @@ function WorkspacePage() {
         }
     }, []);
 
-    // --- **التعديل الجوهري**: دمج منطق البدء والإيقاف في دالة واحدة للتبديل (toggle) ---
     const handleToggleRecording = useCallback(async () => {
-        // إذا كان التسجيل يعمل حاليًا، قم بإيقافه
         if (isRecording) {
             if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
                 mediaRecorderRef.current.stop();
             }
-            // سيتم تحديث isRecording إلى false في onstop
             return;
         }
 
-        // إذا لم يكن التسجيل يعمل، قم ببدئه
         setError('');
         if (isTranscribing) return;
         
@@ -362,7 +356,7 @@ function WorkspacePage() {
                     const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
                     audioChunksRef.current = [];
                     stream.getTracks().forEach(track => track.stop());
-                    setIsRecording(false); // تحديث الحالة بعد إيقاف المسار
+                    setIsRecording(false);
                     if (audioBlob.size > 0) {
                         await transcribeFile(audioBlob);
                     }
@@ -377,8 +371,6 @@ function WorkspacePage() {
             setError("المتصفح لا يدعم التسجيل الصوتي.");
         }
     }, [isRecording, isTranscribing, transcribeFile]);
-
-    // --- تم حذف الدوال القديمة handleStartRecording و handleStopRecording ---
 
     const handleFileSelect = (event) => {
         const file = event.target.files[0];
@@ -413,7 +405,6 @@ function WorkspacePage() {
                 <button type="button" className="mic-button" onClick={handleUploadClick} title="تحميل ملف صوتي">
                     <FaPaperclip />
                 </button>
-                {/* --- **التعديل الجوهري**: استخدام onClick فقط للتبديل --- */}
                 <button 
                     ref={micButtonRef}
                     type="button" 
@@ -534,7 +525,7 @@ function WorkspacePage() {
                         value={inputText} 
                         onChange={(e) => setInputText(e.target.value)} 
                         placeholder={isTranscribing ? "جاري تفريغ الصوت..." : "اكتب النص..."}
-                        onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleTranslate(null); } }} 
+                        // --- **التعديل الجوهري والنهائي هنا**: تم حذف onKeyDown بالكامل ---
                         minRows={1}
                         maxRows={6}
                         cacheMeasurements
