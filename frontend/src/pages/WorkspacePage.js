@@ -109,7 +109,7 @@ function WorkspacePage() {
         }
     }, [messages, messageSearchQuery]);
 
-    // تم حذف الـ useEffect الخاص باللمس لأنه سيتم التعامل معه مباشرة في الزر
+    // **تم حذف الـ useEffect الخاص باللمس لأنه سيتم التعامل معه مباشرة في الزر**
     
     useEffect(() => {
       if (isSettingsOpen) {
@@ -319,7 +319,7 @@ function WorkspacePage() {
         }
     };
 
-    const transcribeFile = async (file) => {
+    const transcribeFile = useCallback(async (file) => {
         if (!file) return;
         setIsTranscribing(true);
         setError('');
@@ -333,16 +333,16 @@ function WorkspacePage() {
         } finally {
             setIsTranscribing(false);
         }
-    };
+    }, []);
 
-    // --- **التعديل الجوهري**: دمج منطق البدء والإيقاف في دالة واحدة ---
+    // --- **التعديل الجوهري**: دمج منطق البدء والإيقاف في دالة واحدة للتبديل (toggle) ---
     const handleToggleRecording = useCallback(async () => {
         // إذا كان التسجيل يعمل حاليًا، قم بإيقافه
         if (isRecording) {
             if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
                 mediaRecorderRef.current.stop();
-                setIsRecording(false);
             }
+            // سيتم تحديث isRecording إلى false في onstop
             return;
         }
 
@@ -362,6 +362,7 @@ function WorkspacePage() {
                     const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
                     audioChunksRef.current = [];
                     stream.getTracks().forEach(track => track.stop());
+                    setIsRecording(false); // تحديث الحالة بعد إيقاف المسار
                     if (audioBlob.size > 0) {
                         await transcribeFile(audioBlob);
                     }
@@ -375,7 +376,7 @@ function WorkspacePage() {
         } else {
             setError("المتصفح لا يدعم التسجيل الصوتي.");
         }
-    }, [isRecording, isTranscribing, transcribeFile]); // قمنا بتغليفها بـ useCallback لتحسين الأداء
+    }, [isRecording, isTranscribing, transcribeFile]);
 
     // --- تم حذف الدوال القديمة handleStartRecording و handleStopRecording ---
 
