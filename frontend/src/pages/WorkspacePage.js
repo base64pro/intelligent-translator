@@ -537,7 +537,7 @@ function WorkspacePage() {
                         ref={fileInputRef}
                         onChange={handleFileSelect}
                         style={{ display: 'none' }}
-                        accept="audio/*"
+                        accept="audio/*,.m4a,.mp3,.webm,.mp4,.wav"
                     />
                     
                     {renderInputActions()}
