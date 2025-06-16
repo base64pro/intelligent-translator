@@ -109,11 +109,8 @@ function WorkspacePage() {
         }
     }, [messages, messageSearchQuery]);
 
-    // **التعديل**: تم حذف useEffect الخاص بـ touchstart لأنه غير ضروري وغير فعال
-    // useEffect(() => {
-    //   ...
-    // }, [isRecording]);
-
+    // تم حذف الـ useEffect الخاص باللمس لأنه سيتم التعامل معه مباشرة في الزر
+    
     useEffect(() => {
       if (isSettingsOpen) {
         const fetchPromptLibrary = async () => {
@@ -338,10 +335,21 @@ function WorkspacePage() {
         }
     };
 
-    const handleStartRecording = useCallback(async (e) => {
-        e.preventDefault();
+    // --- **التعديل الجوهري**: دمج منطق البدء والإيقاف في دالة واحدة ---
+    const handleToggleRecording = useCallback(async () => {
+        // إذا كان التسجيل يعمل حاليًا، قم بإيقافه
+        if (isRecording) {
+            if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+                mediaRecorderRef.current.stop();
+                setIsRecording(false);
+            }
+            return;
+        }
+
+        // إذا لم يكن التسجيل يعمل، قم ببدئه
         setError('');
-        if (isRecording || isTranscribing) return;
+        if (isTranscribing) return;
+        
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -354,7 +362,7 @@ function WorkspacePage() {
                     const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/webm' });
                     audioChunksRef.current = [];
                     stream.getTracks().forEach(track => track.stop());
-                    if(audioBlob.size > 0) {
+                    if (audioBlob.size > 0) {
                         await transcribeFile(audioBlob);
                     }
                 };
@@ -367,15 +375,9 @@ function WorkspacePage() {
         } else {
             setError("المتصفح لا يدعم التسجيل الصوتي.");
         }
-    }, [isRecording, isTranscribing]);
+    }, [isRecording, isTranscribing, transcribeFile]); // قمنا بتغليفها بـ useCallback لتحسين الأداء
 
-    const handleStopRecording = (e) => {
-        e.preventDefault();
-        if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
-            mediaRecorderRef.current.stop();
-            setIsRecording(false);
-        }
-    };
+    // --- تم حذف الدوال القديمة handleStartRecording و handleStopRecording ---
 
     const handleFileSelect = (event) => {
         const file = event.target.files[0];
@@ -410,17 +412,13 @@ function WorkspacePage() {
                 <button type="button" className="mic-button" onClick={handleUploadClick} title="تحميل ملف صوتي">
                     <FaPaperclip />
                 </button>
+                {/* --- **التعديل الجوهري**: استخدام onClick فقط للتبديل --- */}
                 <button 
                     ref={micButtonRef}
                     type="button" 
                     className={`mic-button ${isRecording ? 'recording' : ''}`} 
-                    // **التعديل الجوهري هنا**: إضافة onTouchStart
-                    onMouseDown={handleStartRecording}
-                    onTouchStart={handleStartRecording}
-                    onMouseUp={handleStopRecording}
-                    onTouchEnd={handleStopRecording}
-                    onMouseLeave={handleStopRecording}
-                    title="اضغط باستمرار للتسجيل"
+                    onClick={handleToggleRecording}
+                    title={isRecording ? "إيقاف التسجيل" : "بدء التسجيل"}
                 >
                     {isRecording ? <FaStop /> : <FaMicrophone />}
                 </button>
