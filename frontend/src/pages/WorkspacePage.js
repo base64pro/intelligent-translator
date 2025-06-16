@@ -108,7 +108,7 @@ function WorkspacePage() {
             messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
         }
     }, [messages, messageSearchQuery]);
-    
+
     useEffect(() => {
       if (isSettingsOpen) {
         const fetchPromptLibrary = async () => {
