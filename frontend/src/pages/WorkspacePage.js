@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import TextareaAutosize from 'react-textarea-autosize';
 import { 
@@ -73,7 +73,6 @@ function WorkspacePage() {
     const [editingMessage, setEditingMessage] = useState({ id: null, text: '' });
     const [messageSearchQuery, setMessageSearchQuery] = useState('');
     
-    // **التعديل**: تحسين حالة النسخ لتحديد نوع النص المنسوخ (أصلي أو مترجم)
     const [copyStatus, setCopyStatus] = useState({ id: null, type: null });
     
     const [isRecording, setIsRecording] = useState(false);
@@ -110,20 +109,10 @@ function WorkspacePage() {
         }
     }, [messages, messageSearchQuery]);
 
-    useEffect(() => {
-        const button = micButtonRef.current;
-        if (button) {
-            const handleTouchStart = (e) => {
-                handleStartRecording(e);
-            };
-
-            button.addEventListener('touchstart', handleTouchStart, { passive: false });
-
-            return () => {
-                button.removeEventListener('touchstart', handleTouchStart);
-            };
-        }
-    }, [isRecording]);
+    // **التعديل**: تم حذف useEffect الخاص بـ touchstart لأنه غير ضروري وغير فعال
+    // useEffect(() => {
+    //   ...
+    // }, [isRecording]);
 
     useEffect(() => {
       if (isSettingsOpen) {
@@ -268,7 +257,6 @@ function WorkspacePage() {
         }
     };
 
-    // **التعديل**: تحديث دالة النسخ لتقبل نوع النص
     const handleCopyText = (text, messageId, type) => {
         navigator.clipboard.writeText(text).then(() => {
             setCopyStatus({ id: messageId, type: type });
@@ -350,7 +338,7 @@ function WorkspacePage() {
         }
     };
 
-    const handleStartRecording = async (e) => {
+    const handleStartRecording = useCallback(async (e) => {
         e.preventDefault();
         setError('');
         if (isRecording || isTranscribing) return;
@@ -379,11 +367,11 @@ function WorkspacePage() {
         } else {
             setError("المتصفح لا يدعم التسجيل الصوتي.");
         }
-    };
+    }, [isRecording, isTranscribing]);
 
     const handleStopRecording = (e) => {
         e.preventDefault();
-        if (mediaRecorderRef.current && isRecording) {
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
             mediaRecorderRef.current.stop();
             setIsRecording(false);
         }
@@ -426,9 +414,12 @@ function WorkspacePage() {
                     ref={micButtonRef}
                     type="button" 
                     className={`mic-button ${isRecording ? 'recording' : ''}`} 
+                    // **التعديل الجوهري هنا**: إضافة onTouchStart
                     onMouseDown={handleStartRecording}
+                    onTouchStart={handleStartRecording}
                     onMouseUp={handleStopRecording}
                     onTouchEnd={handleStopRecording}
+                    onMouseLeave={handleStopRecording}
                     title="اضغط باستمرار للتسجيل"
                 >
                     {isRecording ? <FaStop /> : <FaMicrophone />}
@@ -498,7 +489,6 @@ function WorkspacePage() {
                                     <>
                                         <span className="message-content">{highlightText(msg.original_text, messageSearchQuery)}</span>
                                         <div className="message-actions">
-                                            {/* **الإضافة**: زر النسخ الجديد للنص الأصلي */}
                                             <button onClick={() => handleCopyText(msg.original_text, msg.id, 'original')} title="نسخ">
                                                 {copyStatus.id === msg.id && copyStatus.type === 'original' ? 'تم!' : <FaCopy />}
                                             </button>
